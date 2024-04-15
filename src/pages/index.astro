@@ -1,9 +1,13 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import AreasOfExpertise from "../components/AreasOfExpertise.astro";
+import ProfessionalExperience from "../components/ProfessionalExperience.astro";
+import Education from "../components/Education.astro";
+import Certifications from "../components/Certifications.astro";
 ---
 
 <Layout title="Colin Thompson">
-	<header class="px-6 pt-2">
+	<header class="max-w-screen-xl left-1/2 -translate-x-1/2 px-6 pt-2">
 		<div class="w-full border-b-4 border-black">
 			<h1 class="text-left">Colin Thompson</h1>
 		</div>
@@ -21,6 +25,8 @@ import Layout from "../layouts/Layout.astro";
 		</ul>
 		<nav class="relative">
 			<ul class="nav-menu my-2 hidden">
+				<li><a href="#areas-of-expertise">Areas Of Expertise</a></li>
+				<li><a href="#professional-experience">Professional Experience</a></li>
 				<li><a href="tel:(519) 980-2710">519.980.2710</a></li>
 				<li>
 					<a
@@ -36,232 +42,11 @@ import Layout from "../layouts/Layout.astro";
 			</ul>
 		</nav>
 	</header>
-	<main>
-		<h2>AREAS OF EXPERTISE</h2>
-		<p>
-			<strong>Professional:</strong>Relationship building, collaboration,
-			multitasking, deadline driven, oral/written communication, creative
-			problem solving, skill development, coaching and training, strategic
-			planning, best practices, website optimization, code review,
-			debugging code, responsive web design, web animation, a11y standards
-		</p>
-		<p><strong>Technical</strong>:</p>
-		<table>
-			<tbody>
-				<tr>
-					<td>
-						<ul>
-							<li>HTML</li>
-							<li>Document Object Model (DOM)</li>
-							<li>CSS</li>
-							<ul>
-								<li>SASS</li>
-								<li>Tailwind</li>
-								<li>Bootstrap</li>
-							</ul>
-							<li>Python</li>
-							<li>PHP</li>
-							<ul>
-								<li>WordPress</li>
-							</ul>
-						</ul>
-					</td>
-					<td>
-						<ul>
-							<li>Node</li>
-							<li>JavaScript</li>
-							<ul>
-								<li>TypeScript</li>
-								<li>jQuery</li>
-								<li>React</li>
-								<ul>
-									<li>NextJS</li>
-									<li>Gatsby</li>
-								</ul>
-								<li>GSAP</li>
-								<li>Astro</li>
-							</ul>
-						</ul>
-					</td>
-					<td>
-						<ul>
-							<li>C#</li>
-							<ul>
-								<li>Laravel</li>
-								<li>Unity 3D</li>
-							</ul>
-							<li>.NET</li>
-							<li>SQL</li>
-							<ul>
-								<li>PostgreSQL</li>
-								<li>MongoDB</li>
-								<li>MySQL</li>
-							</ul>
-							<li>Figma</li>
-						</ul>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-		<p><strong>Language:</strong>English (fluent)</p>
-		<h2>PROFESSIONAL EXPERIENCE</h2>
-		<table>
-			<tbody>
-				<tr>
-					<td>
-						<p>
-							Web Developer &bull; Klick &bull; Permanent
-							Full-time
-						</p>
-						<ul>
-							<li>
-								Executed the development of new websites based
-								on design concepts from Figma, Photoshop, and
-								Sketch
-							</li>
-							<li>
-								Engaged in productive communication and
-								collaboration with project management, creative
-								designers, developers, and QA to optimize
-								project delivery
-							</li>
-							<li>
-								Participated in the successful launch of 3 new
-								websites and numerous important updates for
-								major pharmaceutical companies
-							</li>
-							<li>
-								Managed the maintenance and enhancement of
-								websites utilizing various tech stacks such as
-								.Net, Gatsby, Wagtail, and Wordpress
-							</li>
-						</ul>
-					</td>
-					<td>
-						<p>May 2021 - Apr 2024 &bull; 3yrs</p>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<p>
-							Front-End Developer &bull; GS1 Canada &bull;
-							Contract
-						</p>
-						<ul>
-							<li>
-								Partnered with Designers, Project Managers,
-								Developers, and operated within a team structure
-								of 10 individuals to create website templates
-								and provide front-end web development services.
-							</li>
-							<li>
-								Transferred website code and assets to Kentico
-								CMS. This project involved the migration of
-								about 1000 pages with various page elements and
-								components.
-							</li>
-							<li>
-								Applied HTML, CSS, jQuery, Gulp, JavaScript, and
-								Bootstrap Library to aid in migration
-								procedures.
-							</li>
-						</ul>
-					</td>
-					<td>
-						<p>Apr 2019 - July 2024 &bull; 2yrs 4mos</p>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<p>Interactive Developer &bull; Rain</p>
-						<ul>
-							<li>
-								Built and animated banner ads and splash pages
-								for reputable clients such as Freedom Mobile and
-								CWT Vacations.
-							</li>
-							<li>
-								Successfully brought creative visions to
-								fruition through the development of live sites.
-							</li>
-							<li>
-								Ensured accuracy in file delivery to clients,
-								meeting size and quality requirements.
-							</li>
-							<li>
-								Leveraged expertise in HTML, CSS, jQuery, GIT,
-								JavaScript, GSAP, and Bootstrap Library for
-								efficient client trafficking.
-							</li>
-						</ul>
-					</td>
-					<td>
-						<p>Jan 2019 - Mar 2019 &bull; 3 mos</p>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-		<h2>EDUCATION</h2>
-		<table>
-			<tbody>
-				<tr>
-					<td>
-						<p>St. Clair College</p>
-						<p>
-							Advanced Diploma, Internet Applications and Web
-							Development
-						</p>
-						<p>
-							Relevant Coursework: HTML, CSS, JavaScript, PHP,
-							Swift, .Net, XML, JSON, MongoDB, MySQL
-						</p>
-					</td>
-					<td>
-						<p>March, 2017</p>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<p>St. Clair College</p>
-						<p>
-							Advanced Diploma, Animation, Interactive Technology,
-							Video Graphics and Special Effects
-						</p>
-						<p>
-							Relevant Coursework: Animation, Photoshop,
-							Illustrator
-						</p>
-					</td>
-					<td>
-						<p>March, 2011</p>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-		<h2>CERTIFICATIONS</h2>
-		<table>
-			<tbody>
-				<tr>
-					<td>
-						<p>LinkedIn Learning</p>
-						<p>
-							https://www.linkedin.com/in/colin-thompson-06b87249/details/certifications/
-						</p>
-						<p>
-							Relevant Coursework: React.js Essential Training,
-							JavaScript and JSON, Responsive CSS with Sass and
-							Compass, Design the Web: Graphics and CSS
-							Pseudo-Elements, Design the Web: Pie Charts with
-							CSS, Up and Running with MySQL Development,
-							JavaScript: Functions, Learning Python
-						</p>
-					</td>
-					<td>
-						<p>Jul 2015 - Present</p>
-					</td>
-				</tr>
-			</tbody>
-		</table>
+	<main class="max-w-screen-xl mx-auto">
+		<AreasOfExpertise />
+		<ProfessionalExperience />
+		<Education />
+		<Certifications />
 	</main>
 </Layout>
 
@@ -281,7 +66,6 @@ import Layout from "../layouts/Layout.astro";
 		border-bottom: 1px solid black;
 		background-color: white;
 		& button {
-			display: block;
 			grid-column-start: 2;
 			&::before {
 				content: "";
