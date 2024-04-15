@@ -3,27 +3,23 @@ import Section from "../layouts/Section.astro"
 ---
 
 <Section idName="certifications" header="Certifications">
-    <table>
-        <tbody>
-            <tr>
-                <td>
-                    <p>LinkedIn Learning</p>
-                    <p>
-                        https://www.linkedin.com/in/colin-thompson-06b87249/details/certifications/
-                    </p>
-                    <p>
-                        Relevant Coursework: React.js Essential Training,
-                        JavaScript and JSON, Responsive CSS with Sass and
-                        Compass, Design the Web: Graphics and CSS
-                        Pseudo-Elements, Design the Web: Pie Charts with
-                        CSS, Up and Running with MySQL Development,
-                        JavaScript: Functions, Learning Python
-                    </p>
-                </td>
-                <td>
-                    <p>Jul 2015 - Present</p>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="flex flex-col md:flex-row-reverse">
+        <div class="w-full md:w-1/5 md:text-right">
+            <p><i>March, 2011</i></p>
+        </div>
+        <div class="w-full md:w-4/5">
+            <p><strong>LinkedIn Learning</strong></p>
+            <p>
+                <a href="https://www.linkedin.com/in/colin-thompson-06b87249/details/certifications/" class="underline">See full list</a>
+            </p>
+            <p>
+                <strong>Relevant Coursework:</strong> React.js Essential Training,
+                JavaScript and JSON, Responsive CSS with Sass and
+                Compass, Design the Web: Graphics and CSS
+                Pseudo-Elements, Design the Web: Pie Charts with
+                CSS, Up and Running with MySQL Development,
+                JavaScript: Functions, Learning Python
+            </p>
+        </div>
+    </div>
 </Section>

@@ -12,7 +12,7 @@ import Contact from "../components/Contact.astro";
 		<div class="w-full border-b-4 border-black">
 			<h1 class="text-left">Colin Thompson</h1>
 		</div>
-		<button class="nav-toggle lg:hidden before:block before:hidden">
+		<button class="nav-toggle lg:hidden before:flex before:hidden">
 			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 				<line x1="3" y1="12" x2="21" y2="12"></line>
 				<line x1="3" y1="6" x2="21" y2="6"></line>
@@ -25,7 +25,7 @@ import Contact from "../components/Contact.astro";
 			<li>Front-End Developer</li>
 		</ul>
 		<nav class="relative">
-			<ul class="nav-menu my-2 hidden md:flex flex-col items-start md:flex-row md:justify-center md:gap-16">
+			<ul class="nav-menu my-2 flex hidden md:flex flex-col items-start md:flex-row md:justify-center md:gap-16">
 				<li><a href="#areas-of-expertise">Areas Of Expertise</a></li>
 				<li><a href="#professional-experience">Professional Experience</a></li>
 				<li><a href="#education">Education</a></li>
@@ -56,8 +56,9 @@ import Contact from "../components/Contact.astro";
 		justify-items: center;
 		text-align: center;
 		overflow: hidden;
-		border-bottom: 1px solid black;
+		border-bottom: 1px solid var(--wenge);
 		background-color: white;
+		color: var(--eerie-black);
 		& button {
 			grid-column-start: 2;
 			&::before {
@@ -82,6 +83,32 @@ import Contact from "../components/Contact.astro";
 		& nav {
 			width: 100%;
 			-ms-grid-column-span: 2;
+			& .nav-menu li {
+				width: 100%;
+				a {
+					display: block;
+					position: relative;
+					width: 100%;
+					text-align: right;
+					z-index: 20;
+					@media screen and (min-width: 960px) {
+						&::before {
+							content: "";
+							position: absolute;
+							background-color: var(--wenge);
+							bottom: 0;
+							width: 2rem;
+							height: 2px;
+							z-index: -1;
+						}
+						&:hover {
+							&::before {
+								background-color: var(--cordovan);
+							}
+						}
+					}	
+				}
+			} 
 		}
 	}
 	main {

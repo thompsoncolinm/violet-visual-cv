@@ -31,21 +31,45 @@ const { title } = Astro.props;
 		font-display: swap;
 	}
 	:root {
-		--header-height: 60px;
-		--header-height-nav-open: 260px;
+		--header-height-nav-open: 197px;
+		--header-height-desktop: 146px;
 		--xs: 375px;
 		--sm: 576px;
 		--md: 960px;
 		--lg: 1440px;
 		--xl: 1536px;
+		--ecru: #bfb48fff;
+		--wenge: #564e58ff;
+		--cordovan: #904e55ff;
+		--isabelline: #f2efe9ff;
+		--eerie-black: #252627ff;
+
+		/* Gradient */
+		--gradient-top: linear-gradient(0deg, #bfb48fff, #564e58ff, #904e55ff, #f2efe9ff, #252627ff);
+		--gradient-right: linear-gradient(90deg, #bfb48fff, #564e58ff, #904e55ff, #f2efe9ff, #252627ff);
+		--gradient-bottom: linear-gradient(180deg, #bfb48fff, #564e58ff, #904e55ff, #f2efe9ff, #252627ff);
+		--gradient-left: linear-gradient(270deg, #bfb48fff, #564e58ff, #904e55ff, #f2efe9ff, #252627ff);
+		--gradient-top-right: linear-gradient(45deg, #bfb48fff, #564e58ff, #904e55ff, #f2efe9ff, #252627ff);
+		--gradient-bottom-right: linear-gradient(135deg, #bfb48fff, #564e58ff, #904e55ff, #f2efe9ff, #252627ff);
+		--gradient-top-left: linear-gradient(225deg, #bfb48fff, #564e58ff, #904e55ff, #f2efe9ff, #252627ff);
+		--gradient-bottom-left: linear-gradient(315deg, #bfb48fff, #564e58ff, #904e55ff, #f2efe9ff, #252627ff);
+		--gradient-radial: radial-gradient(#bfb48fff, #564e58ff, #904e55ff, #f2efe9ff, #252627ff);
 	}
-	@property --screen-md: 960px;
+	
 	html, body {
 		margin: 0;
 		padding: 0;
 		scroll-padding-top: var(--header-height-nav-open);
+		@media screen and (min-width: 768px) {
+			scroll-padding-top: var(--header-height-desktop);	
+		}
 	}
 	h1 {
 		font-size: 2rem;
+	}
+	.highlight {
+		background-color: var(--isabelline);
+		position: absolute;
+		z-index: -1;
 	}
 </style>
