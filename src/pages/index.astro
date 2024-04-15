@@ -4,6 +4,7 @@ import AreasOfExpertise from "../components/AreasOfExpertise.astro";
 import ProfessionalExperience from "../components/ProfessionalExperience.astro";
 import Education from "../components/Education.astro";
 import Certifications from "../components/Certifications.astro";
+import Contact from "../components/Contact.astro";
 ---
 
 <Layout title="Colin Thompson">
@@ -18,29 +19,18 @@ import Certifications from "../components/Certifications.astro";
 				<line x1="3" y1="18" x2="21" y2="18"></line>
 			</svg>
 		</button>
-		<ul class="my-2 hidden lg:flex top-0">
+		<ul class="job-titles my-2 hidden lg:flex flex-row gap-8 top-0">
 			<li>Web Developer</li>
 			<li>Full-Stack Developer</li>
 			<li>Front-End Developer</li>
 		</ul>
 		<nav class="relative">
-			<ul class="nav-menu my-2 hidden md:block">
+			<ul class="nav-menu my-2 hidden md:flex flex-col items-start md:flex-row md:justify-center md:gap-16">
 				<li><a href="#areas-of-expertise">Areas Of Expertise</a></li>
 				<li><a href="#professional-experience">Professional Experience</a></li>
 				<li><a href="#education">Education</a></li>
 				<li><a href="#certifications">Certifications</a></li>
-				<li><a href="tel:(519) 980-2710">519.980.2710</a></li>
-				<li>
-					<a
-						href="mailto:thompsoncolinm+cvsite@gmail.com?subject=Hello%20Colin"
-						target="_blank">thompsoncolinm@gmail.com</a>
-				</li>
-				<li>Cambridge, ON</li>
-				<li>
-					<a
-						href="https://www.linkedin.com/in/colin-thompson-06b87249"
-						target="_blank">LinkedIn</a>
-				</li>
+				<li><a href="#contact">Contact</a></li>
 			</ul>
 		</nav>
 	</header>
@@ -49,6 +39,7 @@ import Certifications from "../components/Certifications.astro";
 		<ProfessionalExperience />
 		<Education />
 		<Certifications />
+		<Contact />
 	</main>
 </Layout>
 
@@ -79,14 +70,18 @@ import Certifications from "../components/Certifications.astro";
 
 			}
 		}
+		.job-titles {
+			& li{
+				font-size: 1.2rem;
+
+				&:not(:first-child) {
+					list-style-type: disc;
+				}
+			} 
+		}
 		& nav {
 			width: 100%;
 			-ms-grid-column-span: 2;
-		}
-		& ul {
-			flex-wrap: wrap;
-			flex-direction: column;
-			align-items: flex-start;
 		}
 	}
 	main {

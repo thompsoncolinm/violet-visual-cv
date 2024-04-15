@@ -33,7 +33,13 @@ const { title } = Astro.props;
 	:root {
 		--header-height: 60px;
 		--header-height-nav-open: 260px;
+		--xs: 375px;
+		--sm: 576px;
+		--md: 960px;
+		--lg: 1440px;
+		--xl: 1536px;
 	}
+	@property --screen-md: 960px;
 	html, body {
 		margin: 0;
 		padding: 0;
