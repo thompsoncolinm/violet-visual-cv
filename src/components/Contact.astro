@@ -3,7 +3,7 @@ import Section from "../layouts/Section.astro"
 ---
 
 <Section idName="contact" header="Contact">
-    <ul>
+    <ul class="contact-list">
         <li><strong>Location:</strong> Cambridge, ON</li>
         <li><a href="tel:(519) 980-2710">519.980.2710</a></li>
         <li>
@@ -23,3 +23,13 @@ import Section from "../layouts/Section.astro"
         </li>
     </ul>
 </Section>
+
+<style>
+
+    .contact-list li a{
+        display: inline-block;
+        min-height: 48px;
+        min-width: 48px;
+        display: flex;
+        align-items: center;
+    }
