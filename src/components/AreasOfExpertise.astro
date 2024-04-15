@@ -4,69 +4,71 @@ import Section from "../layouts/Section.astro"
 
 <Section idName="areas-of-expertise" header="Areas Of Expertise">
     <p>
-        <strong>Professional:</strong>Relationship building, collaboration,
+        <strong>Professional:</strong> Relationship building, collaboration,
         multitasking, deadline driven, oral/written communication, creative
         problem solving, skill development, coaching and training, strategic
         planning, best practices, website optimization, code review,
         debugging code, responsive web design, web animation, a11y standards
     </p>
     <p><strong>Technical</strong>:</p>
-    <table>
-        <tbody>
-            <tr>
-                <td>
-                    <ul>
-                        <li>HTML</li>
-                        <li>Document Object Model (DOM)</li>
-                        <li>CSS</li>
-                        <ul>
-                            <li>SASS</li>
-                            <li>Tailwind</li>
-                            <li>Bootstrap</li>
-                        </ul>
-                        <li>Python</li>
-                        <li>PHP</li>
-                        <ul>
-                            <li>WordPress</li>
-                        </ul>
-                    </ul>
-                </td>
-                <td>
-                    <ul>
-                        <li>Node</li>
-                        <li>JavaScript</li>
-                        <ul>
-                            <li>TypeScript</li>
-                            <li>jQuery</li>
-                            <li>React</li>
-                            <ul>
-                                <li>NextJS</li>
-                                <li>Gatsby</li>
-                            </ul>
-                            <li>GSAP</li>
-                            <li>Astro</li>
-                        </ul>
-                    </ul>
-                </td>
-                <td>
-                    <ul>
-                        <li>C#</li>
-                        <ul>
-                            <li>Laravel</li>
-                            <li>Unity 3D</li>
-                        </ul>
-                        <li>.NET</li>
-                        <li>SQL</li>
-                        <ul>
-                            <li>PostgreSQL</li>
-                            <li>MongoDB</li>
-                            <li>MySQL</li>
-                        </ul>
-                        <li>Figma</li>
-                    </ul>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <ul class="tech-skills columns-2 md:columns-3 lg:columns-4">
+        <li>HTML</li>
+        <li>Document Object Model (DOM)</li>
+        <li>CSS</li>
+        <ul>
+            <li>SASS</li>
+            <li>Tailwind</li>
+            <li>Bootstrap</li>
+        </ul>
+        <li>Python</li>
+        <li>PHP</li>
+        <ul>
+            <li>WordPress</li>
+        </ul>
+        <li>Node</li>
+        <li>JavaScript</li>
+        <ul>
+            <li>TypeScript</li>
+            <li>jQuery</li>
+            <li>React</li>
+            <ul>
+                <li>NextJS</li>
+                <li>Gatsby</li>
+            </ul>
+            <li>GSAP</li>
+            <li>Astro</li>
+        </ul>
+        <li>C#</li>
+        <ul>
+            <li>Laravel</li>
+            <li>Unity 3D</li>
+        </ul>
+        <li>.NET</li>
+        <li>SQL</li>
+        <ul>
+            <li>PostgreSQL</li>
+            <li>MongoDB</li>
+            <li>MySQL</li>
+        </ul>
+        <li>Figma</li>
+    </ul>
     <p><strong>Language:</strong>English (fluent)</p>
 </Section>
+
+<style>
+    .tech-skills {
+        list-style-type: disc;
+        padding-left: .5rem;
+        & li {
+            margin-left: 1rem;
+        }
+        & ul {
+            list-style-type: circle;
+            padding-left: 1rem;
+            & ul {
+                list-style-type: square;
+                padding-left: 1rem;
+            }
+        }
+    }
+</style>
