@@ -12,7 +12,7 @@ import Contact from "../components/Contact.astro";
 		<div class="w-full border-b-4 border-black">
 			<h1 class="text-left">Colin Thompson</h1>
 		</div>
-		<button class="nav-toggle md:hidden before:flex before:hidden">
+		<button class="nav-toggle md:hidden before:flex before:hidden" aria-label="Mobile Menu">
 			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 				<line x1="3" y1="12" x2="21" y2="12"></line>
 				<line x1="3" y1="6" x2="21" y2="6"></line>
@@ -92,19 +92,23 @@ import Contact from "../components/Contact.astro";
 					text-align: right;
 					z-index: 20;
 					@media screen and (min-width: 960px) {
+						text-align: center;
 						&::before {
 							content: "";
 							position: absolute;
 							background-color: var(--wenge);
 							bottom: 0;
 							width: 2rem;
-							height: 2px;
+							height: 3px;
 							z-index: -1;
 							transition: all 0.3s;
 						}
-						&:hover {
+						&:hover, &:focus {
 							&::before {
 								background-color: var(--cordovan);
+								width: 70%;
+								height: 2px;
+
 							}
 						}
 					}	
