@@ -119,5 +119,8 @@ import Contact from "../components/Contact.astro";
 	main {
 		min-height: 100vh;
 		padding-top: calc(var(--header-height) + 2rem);
+		@media screen and (min-width: 960px) {
+				padding-top: calc(var(--header-height-desktop) + 2rem);
+		}
 	}
 </style>
