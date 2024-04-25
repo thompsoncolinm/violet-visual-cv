@@ -1,0 +1,185 @@
+---
+import Layout from "../../layouts/Layout.astro";
+---
+<script>
+    const display = document.getElementById('display');
+    const buttons = document.querySelectorAll('button');
+    
+    let firstNumber = '';
+    let operator = '';
+    let secondNumber = '';
+    
+    buttons.forEach(button => {
+        button.addEventListener('click', () => {
+            if (button.classList.contains('number')) {
+                if (operator === '') {
+                    firstNumber += button.textContent;
+                    if (display) {
+                        display.value = firstNumber;
+                    }
+                } else {
+                    secondNumber += button.textContent;
+                    if (display) {
+                        display.value += ` ${secondNumber}`;
+                    }
+                }
+            } else if (button.classList.contains('operator')) {
+                if (button.textContent === 'C') {
+                    firstNumber = '';
+                    operator = '';
+                    secondNumber = '';
+                    if (display) {
+                        display.value = '0';
+                    }
+                } else if (button.textContent === '+/-') {
+                    if (operator === '') {
+                        firstNumber = (parseFloat(firstNumber) * -1).toString();
+                        if (display) {
+                            display.value = firstNumber;
+                        }
+                    } else {
+                        secondNumber = (parseFloat(secondNumber) * -1).toString();
+                        if (display) {
+                            display.value += ` ${secondNumber}`;
+                        }
+                    }
+                } else if (button.textContent === '%') {
+                    if (operator === '') {
+                        firstNumber = (parseFloat(firstNumber) / 100).toString();
+                        if (display) {
+                            display.value = firstNumber;
+                        }
+                    } else {
+                        secondNumber = (parseFloat(secondNumber) / 100).toString();
+                        if (display) {
+                            display.value += ` ${secondNumber}`;
+                        }
+                    }
+                } else if (button.textContent === '+') {
+                    operator = '+';
+                    display.value = `${firstNumber} +`
+                } else if (button.textContent === '-') {
+                    operator = '-';
+                    display.value = `${firstNumber} -`
+                } else if (button.textContent === '*') {
+                    operator = '*';
+                    display.value = `${firstNumber} *`
+                } else if (button.textContent === '/') {
+                    operator = '/';
+                    display.value = `${firstNumber} /`
+                } else if (button.textContent === '=') {
+                    if (operator === '+') {
+                        if (display) {
+                            display.value = (parseFloat(firstNumber) + parseFloat(secondNumber)).toString();
+                        }
+                    } else if (operator === '-') {
+                        if (display) {
+                            display.value = (parseFloat(firstNumber) - parseFloat(secondNumber)).toString();
+                        }
+                    } else if (operator === '*') {
+                        if (display) {
+                            display.value = (parseFloat(firstNumber) * parseFloat(secondNumber)).toString();
+                        }
+                    } else if (operator === '/') {
+                        if (display) {
+                            display.value = (parseFloat(firstNumber) / parseFloat(secondNumber)).toString();
+                        }
+                    }
+                    firstNumber = display.value;
+                    operator = '';
+                    secondNumber = '';
+                } else {
+                    operator = button.textContent;
+                }
+            }
+        });
+    });
+</script>
+
+<Layout title="Calculator | Colin Thompson">
+    <header>
+        <h1>Calculator</h1>
+    </header>
+    <main>
+        <form>
+            <input type="text" id="display" value="0" disabled>
+            <div class="flex flex-row">
+                <button type="button" class="operator">C</button>
+                <button type="button" class="operator">+/-</button>
+                <button type="button" class="operator">%</button>
+                <button type="button" class="operator">/</button>
+            </div>
+            <div class="flex flex-row">
+                <button type="button" class="number">7</button>
+                <button type="button" class="number">8</button>
+                <button type="button" class="number">9</button>
+                <button type="button" class="operator">*</button>
+            </div>
+            <div class="flex flex-row">
+                <button type="button" class="number">4</button>
+                <button type="button" class="number">5</button>
+                <button type="button" class="number">6</button>
+                <button type="button" class="operator">-</button>
+            </div>
+            <div class="flex flex-row">
+                <button type="button" class="number">1</button>
+                <button type="button" class="number">2</button>
+                <button type="button" class="number">3</button>
+                <button type="button" class="operator">+</button>
+            </div>
+            <div class="flex flex-row">
+                <button type="button" class="number">0</button>
+                <button type="button" class="number">.</button>
+                <button type="button" class="operator">=</button>
+            </div>
+        </form>
+    </main>
+</Layout>
+
+<style>
+    header {
+        text-align: center;
+    }
+
+    main {
+        display: flex;
+        justify-content: center;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        /* grid-template-columns: repeat(5, 1fr); */
+        gap: 1rem;
+        max-width: 300px;
+        margin: 0 auto;
+        &:first-child {
+            width: 100%
+        }
+    }
+
+    input {
+        grid-column: span 5;
+        padding: 1rem;
+        font-size: 2rem;
+        text-align: right;
+    }
+
+    button {
+        padding: 1rem;
+        font-size: 1.5rem;
+        width: 100%;
+        transition: background-color 0.3s;
+        &:hover {
+            background-color: #d0d0d0;
+        }
+    }
+
+    .operator {
+        background-color: #f0f0f0;
+    }
+
+    .number {
+        background-color: #e0e0e0;
+    }
+</style>
