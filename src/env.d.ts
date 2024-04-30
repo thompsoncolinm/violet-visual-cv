@@ -1,1 +1,9 @@
-/// <reference types="astro/client" />
+interface ImportMetaEnv {
+    readonly PUBLIC_POLYGON_API_KEY: string;
+    readonly OPENAI_API_KEY: string;
+    // more env variables...
+  }
+  
+  interface ImportMeta {
+    readonly env: ImportMetaEnv;
+  }

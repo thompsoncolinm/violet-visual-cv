@@ -1,20 +1,66 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import OpenAI from 'openai'  
+
+console.log('OpenAI script loaded')
+const openai = new OpenAI({
+    apiKey: import.meta.env.OPENAI_API_KEY
+})
+
+// const response = await openai.chat.completions.create({
+//     model: 'gpt-4',
+//     messages: [
+//         {
+//         "role": "system",
+//         "content": "You are a helpful general knowledge expert."
+//         },
+//         {
+//         "role": "user",
+//         "content": "Who invented the television?"
+//         }
+//     ],
+//     temperature: 1,
+//     max_tokens: 256,
+//     top_p: 1,
+//     frequency_penalty: 0,
+//     presence_penalty: 0,
+// })
+
+// console.log(response.choices[0].message.content)
 ---
+<script>
+    // document.addEventListener('DOMContentLoaded', () => {
+    //     const gptResponse = document.querySelector('.gpt-reponse');
+    //     console.log(gptResponse?.textContent);
+    // })
+</script>
 
 
-<Layout>
+<Layout title="Stock Report">
     <header>
         <img src="https://scrimba.com/blobs/sha1:d7f0043ce5f57c1399e4cef0866afcc3f38c7319.png" alt="Dodgy Dave's Stock Predictions">
     </header>
     <main>
         <section class="action-panel">
             <form id="ticker-input-form">
+                <!-- <p class="gpt-reponse">{response.choices[0].message.content}</p> -->
                 <label for="ticker-input"> Add up to 3 stock tickers below to get a super accurate stock predictions report👇 </label>
                 <div class="form-input-control">
                     <input type="text" id="ticker-input" placeholder="MSFT">
                     <button class="add-ticker-btn">
-                        <img src="https://cw0.scrimba.com/images/add.svg" class="add-ticker-svg" alt="add"> 
+                        <!-- <img src="https://cw0.scrimba.com/images/add.svg" class="add-ticker-svg" alt="add">  -->
+                        <div class="add-ticker-svg">
+                            <svg fill="#000000" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                width="14px" height="14px" viewBox="0 0 349.03 349.031"
+                                xml:space="preserve">
+                            <g>
+                                <path d="M349.03,141.226v66.579c0,5.012-4.061,9.079-9.079,9.079H216.884v123.067c0,5.019-4.067,9.079-9.079,9.079h-66.579
+                                    c-5.009,0-9.079-4.061-9.079-9.079V216.884H9.079c-5.016,0-9.079-4.067-9.079-9.079v-66.579c0-5.013,4.063-9.079,9.079-9.079
+                                    h123.068V9.079c0-5.018,4.069-9.079,9.079-9.079h66.579c5.012,0,9.079,4.061,9.079,9.079v123.068h123.067
+                                    C344.97,132.147,349.03,136.213,349.03,141.226z"/>
+                            </g>
+                            </svg>
+                        </div>
                     </button>
                 </div>
             </form>
@@ -27,7 +73,11 @@ import Layout from "../../layouts/Layout.astro";
             <p class="tag-line">Always correct 15% of the time!</p>
         </section>
         <section class="loading-panel">
-            <img src="https://cw0.scrimba.com/images/loader.svg" alt="loading">
+            <svg width="400px" height="400px" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid">
+                <circle cx="50" cy="50" fill="none" stroke="#46ff90" stroke-width="10" r="35" stroke-dasharray="164.93361431346415 56.97787143782138">
+                  <animateTransform attributeName="transform" type="rotate" repeatCount="indefinite" dur="1s" keyTimes="0;1" values="0 50 50;360 50 50"></animateTransform>
+                </circle>
+              </svg>
             <div id="api-message">Querying Stocks API...</div>
         </section>
         <section class="output-panel">
@@ -37,7 +87,9 @@ import Layout from "../../layouts/Layout.astro";
     <footer>
         &copy; This is not real financial advice!
     </footer>
-    <script type="module" src="/utils/stockPredictions.js"></script>
+    <script type="module">
+        import '/utils/stockPredictions.js';
+    </script>
 </Layout>
 
 <style>
@@ -68,134 +120,155 @@ header img {
 main {
     display: flex;
     justify-content: center;
+    /* Panels */
+    
+    .action-panel, .output-panel {
+        line-height: 1.4em;
+        display: flex;
+        height: 350px;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        margin: 1.5em 2em;
+    }
+    
+    .output-panel {
+        display: none;
+        justify-content: flex-start;
+        border: 2px solid;
+        padding: 1em 2em;
+    }
+    
+    .loading-panel {
+        display: none;
+        flex-direction: column;
+        justify-content: space-around;
+        height: 400px;
+        text-align: center;
+    }
+    
+    .output-panel p{
+        overflow-y: scroll;
+    }
+    
+    /* text */
+    
+    h2 {
+        text-align: center;
+        font-weight: 400; 
+        margin-top: -26px;
+        background-color: #f6f6f6;
+        padding: 0 10px;
+        font-size: 18px;
+        margin-bottom: 0;
+    }
+    
+    p.tag-line {
+        font-family: 'Comic Neue';
+        font-weight: 700;
+        font-size: 14px;
+    }
+    
+    .ticker-choice-display {
+        display: flex;
+        align-items: center;
+        height: 3em; 
+        .ticker {
+            margin: 0 .1rem;
+            content: '';
+            &::after {
+                content: ',';
+                display: inline-block;
+                height: 1rem;
+                width: 1rem;
+            }
+            &:last-child::after {
+                content: '';
+            }
+        }
+    
+    
+    /* .ticker:last-child::after {
+        content: '';
+    } */
+    }
+    
+    /* controls */
+    
+    form {
+        width: 360px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    label {
+        text-align: center;
+        padding: .43em;
+        font-size: 15px;
+        margin-bottom: 1em;
+        width: 80%;
+    }
+    
+    .form-input-control {
+        display: flex;
+        width: 70%;
+    }
+    
+    input[type="text"] {
+        padding: 1em;
+        border: 2px solid black;
+        border-right: none;
+    }
+    
+    /* Buttons */
+    
+    .add-ticker-btn {
+        display: flex;
+        align-items: center;
+        background-color: #ffffff;
+        font-size: 3em;
+        padding: 0 .35em;
+        cursor: pointer;
+        border: 2px solid;
+    }
+    
+    .add-ticker-svg {
+        width: 14px;
+        height: 14px;
+    
+    }
+    
+    .generate-report-btn {
+        width: 70%;
+        padding: 1em 1.5em;
+        cursor: pointer;
+        font-family: 'Poppins', sans;
+        border: 2px solid #000000;
+        background-color: #46ff90;
+        text-transform: uppercase;
+        font-weight: 500;
+        letter-spacing: .09em;
+        font-size: 105%;
+    }
+    
+    /* ticker display (ensure comma separated) */
+    
+    .ticker {
+        margin: 0 1rem;
+        content: '';
+        &::after {
+            content: ', ';
+            display: inline-block;
+        }
+    }
+    
+    
+    /* .ticker:last-child::after {
+        content: '';
+    } */
 }
 
-/* Panels */
-
-.action-panel, .output-panel {
-    line-height: 1.4em;
-    display: flex;
-    height: 350px;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    margin: 1.5em 2em;
-}
-
-.output-panel {
-    display: none;
-    justify-content: flex-start;
-    border: 2px solid;
-    padding: 1em 2em;
-}
-
-.loading-panel {
-    display: none;
-    flex-direction: column;
-    justify-content: space-around;
-    height: 400px;
-    text-align: center;
-}
-
-.output-panel p{
-    overflow-y: scroll;
-}
-
-/* text */
-
-h2 {
-    text-align: center;
-    font-weight: 400; 
-    margin-top: -26px;
-    background-color: #f6f6f6;
-    padding: 0 10px;
-    font-size: 18px;
-    margin-bottom: 0;
-}
-
-p.tag-line {
-    font-family: 'Comic Neue';
-    font-weight: 700;
-    font-size: 14px;
-}
-
-.ticker-choice-display {
-    display: flex;
-    align-items: center;
-    height: 3em; 
-}
-
-/* controls */
-
-form {
-    width: 360px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-label {
-    text-align: center;
-    padding: .43em;
-    font-size: 15px;
-    margin-bottom: 1em;
-    width: 80%;
-}
-
-.form-input-control {
-    display: flex;
-    width: 70%;
-}
-
-input[type="text"] {
-    padding: 1em;
-    border: 2px solid black;
-    border-right: none;
-}
-
-/* Buttons */
-
-.add-ticker-btn {
-    display: flex;
-    align-items: center;
-    background-color: #ffffff;
-    font-size: 3em;
-    padding: 0 .35em;
-    cursor: pointer;
-    border: 2px solid;
-}
-
-.add-ticker-svg {
-    width: 14px;
-}
-
-.generate-report-btn {
-    width: 70%;
-    padding: 1em 1.5em;
-    cursor: pointer;
-    font-family: 'Poppins', sans;
-    border: 2px solid #000000;
-    background-color: #46ff90;
-    text-transform: uppercase;
-    font-weight: 500;
-    letter-spacing: .09em;
-    font-size: 105%;
-}
-
-/* ticker display (ensure comma separated) */
-
-.ticker {
-    margin: 0 .1em;
-    content: '';
-}
-
-.ticker:after {
-    content: ',';
-}
-
-.ticker:last-child::after {
-    content: '';
-}
 
 /* footer */
 
