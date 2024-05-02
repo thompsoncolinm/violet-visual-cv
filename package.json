@@ -17,6 +17,7 @@
     "typescript": "^5.4.5"
   },
   "devDependencies": {
+    "@astrojs/vercel": "^7.5.4",
     "@types/node": "^20.12.7",
     "dotenv": "^16.4.5",
     "openai": "^4.39.0"
