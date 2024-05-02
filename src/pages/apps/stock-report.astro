@@ -1,5 +1,4 @@
 ---
-import Layout from "../../layouts/Layout.astro"
 import { dates } from './dates.js'
 import OpenAI from 'openai'  
 
@@ -91,7 +90,7 @@ function renderReport(response: string) {
 }
 ---
 
-<Layout title="Stock Report">
+<div>
     <header>
         <img src="https://scrimba.com/blobs/sha1:d7f0043ce5f57c1399e4cef0866afcc3f38c7319.png" alt="Dodgy Dave's Stock Predictions">
     </header>
@@ -140,7 +139,7 @@ function renderReport(response: string) {
     </footer>
     <astro-keyinfo data-api-key={polygonApiKey}>
     </astro-keyinfo>
-</Layout>
+</div>
 
     <script>
         const tickerRegex = /^[A-Z]{1,5}$/;
