@@ -43,15 +43,16 @@ async function fetchData(ticker: string): Promise<string | undefined> {
         apiMessage = 'There was an error fetching stock data.';
         console.error(apiMessage);
         console.log('URL: ',url);
+        throw new Error(apiMessage);
       }
       console.log(data);
     } catch (error: any) {
       console.error('Error:', error);
+      apiMessage = 'Unable to access stock data. Please refresh and try again';
     }
 }
 
 async function fetchReport(data: string): Promise<string | undefined> {
-
     try {
         const openai = new OpenAI({
             apiKey: openaiApiKey
@@ -74,6 +75,7 @@ async function fetchReport(data: string): Promise<string | undefined> {
         } else {
             // Handle the case when content is null
             console.error('Content is null');
+            throw new Error('Content is null');
         }
     
     } catch (error) {
