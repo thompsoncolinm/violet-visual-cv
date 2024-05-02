@@ -1,54 +1,108 @@
 ---
-import Layout from "../../layouts/Layout.astro";
+import Layout from "../../layouts/Layout.astro"
+import { dates } from './dates.js'
 import OpenAI from 'openai'  
 
-console.log('OpenAI script loaded')
-const openai = new OpenAI({
-    apiKey: import.meta.env.OPENAI_API_KEY
-})
+const { 
+    polygonApiKey = import.meta.env.POLYGON_API_KEY,
+    openaiApiKey = import.meta.env.OPENAI_API_KEY,
+     } = Astro.props;
 
-// const response = await openai.chat.completions.create({
-//     model: 'gpt-4',
-//     messages: [
-//         {
-//         "role": "system",
-//         "content": "You are a helpful general knowledge expert."
-//         },
-//         {
-//         "role": "user",
-//         "content": "Who invented the television?"
-//         }
-//     ],
-//     temperature: 1,
-//     max_tokens: 256,
-//     top_p: 1,
-//     frequency_penalty: 0,
-//     presence_penalty: 0,
-// })
+let actionPanelDisplay = 'flex';
+let loadingPanelDisplay = 'hidden';
+let outputPanelDisplay = 'hidden';
+let apiMessage = 'Querying Stocks API...';
+let reportOutput;
+const tickerRegex = /^[A-Z]{1,5}$/;
 
-// console.log(response.choices[0].message.content)
+
+if (Astro.request.method === "POST") {
+  try {
+    const data = await Astro.request.formData();
+    const ticker = String(data.get("ticker")).toUpperCase();
+    if (ticker && tickerRegex.test(ticker)) {
+        reportOutput =  await fetchData(ticker);
+    }
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error.message);
+    }
+  }
+}
+
+async function fetchData(ticker: string): Promise<string | undefined> {
+    try {
+        const url = `https://api.polygon.io/v2/aggs/ticker/${ticker}/range/1/day/${dates.startDate}/${dates.endDate}?apiKey=${polygonApiKey}`;
+        const response = await fetch(url);
+        const data = await response.text();
+        const status = response.status;
+        if (status === 200) {
+        apiMessage = 'Creating report...';
+        actionPanelDisplay = 'hidden';        
+        loadingPanelDisplay = 'flex';
+        return fetchReport(data);
+      } else {
+        apiMessage = 'There was an error fetching stock data.';
+        console.error(apiMessage);
+        console.log('URL: ',url);
+      }
+      console.log(data);
+    } catch (error: any) {
+      console.error('Error:', error);
+    }
+}
+
+async function fetchReport(data: string): Promise<string | undefined> {
+
+    try {
+        const openai = new OpenAI({
+            apiKey: openaiApiKey
+        })
+        const response = await openai.chat.completions.create({
+            model: 'gpt-4',
+            messages: [
+                {
+                    role: 'system',
+                    content: 'You are a trading guru. Given data on share prices over the past 3 days, write a report of no more than 150 words describing the stocks performance and recommending whether to buy, hold or sell.'
+                },
+                {
+                    role: 'user',
+                    content: data
+                }
+            ]
+        })
+        if (response.choices[0].message.content !== null) {
+            return renderReport(response.choices[0].message.content);
+        } else {
+            // Handle the case when content is null
+            console.error('Content is null');
+        }
+    
+    } catch (error) {
+        console.error('Error:', error)
+        apiMessage = 'Unable to access AI. Please refresh and try again';
+    }
+}
+
+function renderReport(response: string) {
+    loadingPanelDisplay = 'hidden';
+    outputPanelDisplay = 'flex';
+    return response;
+}
 ---
-<script>
-    // document.addEventListener('DOMContentLoaded', () => {
-    //     const gptResponse = document.querySelector('.gpt-reponse');
-    //     console.log(gptResponse?.textContent);
-    // })
-</script>
-
 
 <Layout title="Stock Report">
     <header>
         <img src="https://scrimba.com/blobs/sha1:d7f0043ce5f57c1399e4cef0866afcc3f38c7319.png" alt="Dodgy Dave's Stock Predictions">
     </header>
     <main>
-        <section class="action-panel">
-            <form id="ticker-input-form">
+        <section class=`action-panel ${actionPanelDisplay}`>
+            <form id="ticker-input-form" method="POST">
                 <!-- <p class="gpt-reponse">{response.choices[0].message.content}</p> -->
-                <label for="ticker-input"> Add up to 3 stock tickers below to get a super accurate stock predictions report👇 </label>
+                <label for="ticker-input"> Add a ticker below to get a super accurate stock predictions report👇 </label>
                 <div class="form-input-control">
-                    <input type="text" id="ticker-input" placeholder="MSFT">
+                    <input type="text" id="ticker-input" name="ticker" placeholder="MSFT">
                     <button class="add-ticker-btn">
-                        <!-- <img src="https://cw0.scrimba.com/images/add.svg" class="add-ticker-svg" alt="add">  -->
                         <div class="add-ticker-svg">
                             <svg fill="#000000" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                 width="14px" height="14px" viewBox="0 0 349.03 349.031"
@@ -62,228 +116,68 @@ const openai = new OpenAI({
                             </svg>
                         </div>
                     </button>
+                    <div class="ticker-error absolute bg-white text-red-600 left-1/2 -translate-x-1/2 translate-y-16 hidden">The ticker provided is not valid</div>
                 </div>
             </form>
-            <p class="ticker-choice-display">
-                Your tickers will appear here...
-            </p>
-            <button class="generate-report-btn" type="button" disabled>
-                Generate Report
-            </button>
             <p class="tag-line">Always correct 15% of the time!</p>
         </section>
-        <section class="loading-panel">
+        <section class=`loading-panel ${loadingPanelDisplay}`>
             <svg width="400px" height="400px" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid">
                 <circle cx="50" cy="50" fill="none" stroke="#46ff90" stroke-width="10" r="35" stroke-dasharray="164.93361431346415 56.97787143782138">
-                  <animateTransform attributeName="transform" type="rotate" repeatCount="indefinite" dur="1s" keyTimes="0;1" values="0 50 50;360 50 50"></animateTransform>
+                    <animateTransform attributeName="transform" type="rotate" repeatCount="indefinite" dur="1s" keyTimes="0;1" values="0 50 50;360 50 50"></animateTransform>
                 </circle>
-              </svg>
-            <div id="api-message">Querying Stocks API...</div>
+            </svg>
+            <div id="api-message">{apiMessage}</div>
         </section>
-        <section class="output-panel">
+        <section class=`output-panel ${outputPanelDisplay}`>
             <h2>Your Report 😜</h2>
+            {reportOutput}
+            <button id="check-another" class="p-4 bg-slate-300 m-4 hover:bg-slate-500">Check another stock</button>
         </section>
     </main>
     <footer>
         &copy; This is not real financial advice!
     </footer>
-    <script type="module">
-        import '/utils/stockPredictions.js';
-    </script>
+    <astro-keyinfo data-api-key={polygonApiKey}>
+    </astro-keyinfo>
 </Layout>
 
+    <script>
+        const tickerRegex = /^[A-Z]{1,5}$/;
+
+        // update input to capitalize letters
+        document.getElementById('ticker-input')?.addEventListener('input', (e) => {
+            const input = e.target as HTMLInputElement;
+            input.value = input.value.toUpperCase();
+        })
+        document.getElementById('ticker-input-form')?.addEventListener('submit', (e) => {
+            const tickerInput = document.getElementById('ticker-input') as HTMLInputElement;
+            if (!tickerRegex.test(tickerInput.value)) {
+                e.preventDefault();
+                document.querySelector('.ticker-error')?.classList.remove('hidden');
+            } else {
+                document.querySelector('.add-ticker-btn')?.setAttribute('disabled', 'true');
+                // hide action panel
+                document.querySelector('.action-panel')?.classList.remove('flex');
+                document.querySelector('.action-panel')?.classList.add('hidden');
+                // show loading panel
+                document.querySelector('.loading-panel')?.classList.remove('hidden');
+                document.querySelector('.loading-panel')?.classList.add('flex');
+            }
+        })
+        document.getElementById('check-another')?.addEventListener('click', () => {
+            // hide output panel
+            document.querySelector('.output-panel')?.classList.remove('flex');
+            document.querySelector('.output-panel')?.classList.add('hidden');
+            // show action panel
+            document.querySelector('.action-panel')?.classList.remove('hidden');
+            document.querySelector('.action-panel')?.classList.add('flex');
+            // enable input
+            document.querySelector('.add-ticker-btn')?.removeAttribute('disabled');
+        })
+    </script>
+
 <style>
-    html, body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Poppins', sans-serif;
-    background-color: #f6f6f6;
-}
-
-* {
-    box-sizing: border-box;
-}
-
-header {
-    display: flex;
-    justify-content: center;
-    padding: 1em;
-    background-color: black;
-    max-width: 500px;
-    margin: 0 auto;
-}
-
-header img {
-    width: 340px;
-}
-
-main {
-    display: flex;
-    justify-content: center;
-    /* Panels */
-    
-    .action-panel, .output-panel {
-        line-height: 1.4em;
-        display: flex;
-        height: 350px;
-        flex-direction: column;
-        justify-content: space-around;
-        align-items: center;
-        margin: 1.5em 2em;
-    }
-    
-    .output-panel {
-        display: none;
-        justify-content: flex-start;
-        border: 2px solid;
-        padding: 1em 2em;
-    }
-    
-    .loading-panel {
-        display: none;
-        flex-direction: column;
-        justify-content: space-around;
-        height: 400px;
-        text-align: center;
-    }
-    
-    .output-panel p{
-        overflow-y: scroll;
-    }
-    
-    /* text */
-    
-    h2 {
-        text-align: center;
-        font-weight: 400; 
-        margin-top: -26px;
-        background-color: #f6f6f6;
-        padding: 0 10px;
-        font-size: 18px;
-        margin-bottom: 0;
-    }
-    
-    p.tag-line {
-        font-family: 'Comic Neue';
-        font-weight: 700;
-        font-size: 14px;
-    }
-    
-    .ticker-choice-display {
-        display: flex;
-        align-items: center;
-        height: 3em; 
-        .ticker {
-            margin: 0 .1rem;
-            content: '';
-            &::after {
-                content: ',';
-                display: inline-block;
-                height: 1rem;
-                width: 1rem;
-            }
-            &:last-child::after {
-                content: '';
-            }
-        }
-    
-    
-    /* .ticker:last-child::after {
-        content: '';
-    } */
-    }
-    
-    /* controls */
-    
-    form {
-        width: 360px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    label {
-        text-align: center;
-        padding: .43em;
-        font-size: 15px;
-        margin-bottom: 1em;
-        width: 80%;
-    }
-    
-    .form-input-control {
-        display: flex;
-        width: 70%;
-    }
-    
-    input[type="text"] {
-        padding: 1em;
-        border: 2px solid black;
-        border-right: none;
-    }
-    
-    /* Buttons */
-    
-    .add-ticker-btn {
-        display: flex;
-        align-items: center;
-        background-color: #ffffff;
-        font-size: 3em;
-        padding: 0 .35em;
-        cursor: pointer;
-        border: 2px solid;
-    }
-    
-    .add-ticker-svg {
-        width: 14px;
-        height: 14px;
-    
-    }
-    
-    .generate-report-btn {
-        width: 70%;
-        padding: 1em 1.5em;
-        cursor: pointer;
-        font-family: 'Poppins', sans;
-        border: 2px solid #000000;
-        background-color: #46ff90;
-        text-transform: uppercase;
-        font-weight: 500;
-        letter-spacing: .09em;
-        font-size: 105%;
-    }
-    
-    /* ticker display (ensure comma separated) */
-    
-    .ticker {
-        margin: 0 1rem;
-        content: '';
-        &::after {
-            content: ', ';
-            display: inline-block;
-        }
-    }
-    
-    
-    /* .ticker:last-child::after {
-        content: '';
-    } */
-}
-
-
-/* footer */
-
-footer {
-    font-size: 14px;
-    text-align: center;
-}
-
-/* stop ugly scroll bar on some browsers */
-.output-panel p::-webkit-scrollbar {
-    display: none;
-}
-
-.output-panel p::-moz-scrollbar {
-    display: none;
-}
+    @import './stock-report.css'
 </style>
 

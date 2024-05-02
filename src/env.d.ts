@@ -1,5 +1,5 @@
 interface ImportMetaEnv {
-    readonly PUBLIC_POLYGON_API_KEY: string;
+    readonly POLYGON_API_KEY: string;
     readonly OPENAI_API_KEY: string;
     // more env variables...
   }
