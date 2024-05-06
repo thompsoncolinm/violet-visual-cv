@@ -41,6 +41,22 @@ import Section from "../layouts/Section.astro"
                     .Net, Gatsby, Wagtail, and Wordpress.
                 </li>
             </ul>
+            <p><b>Sites Maintained</b></p>
+            <button id="sitesManagedDropdownButton">Show Sites</button>
+
+            <div id="sitesManagedDropwdown" class="hidden max-h-0">
+                <ul>
+                    <li><a href="https://www.inpefahcp.com/">https://www.inpefahcp.com/</a> Gatsby/Tailwind</li>
+                    <li><a href="https://www.inqovi.com/">https://www.inqovi.com/</a> .NET/Grunt/Sass</li>
+                    <li><a href="https://www.lonsurf.com/">https://www.lonsurf.com/</a> .NET/Gulp/Sass</li>
+                    <li><a href="https://www.lonsurfhcp.com/">https://www.lonsurfhcp.com/</a> .NET/Gulp/Sass</li>
+                    <li><a href="https://www.lytgobi.com/">https://www.lytgobi.com/</a> Wagtail CMS/Python/Tailwind</li>
+                    <li><a href="https://www.qinlock.com/">https://www.qinlock.com/</a> .NET/Gulp/Sass</li>
+                    <li><a href="https://www.qinlockhcp.com/">https://www.qinlockhcp.com/</a> .NET/Gulp/Sass</li>
+                    <li><a href="https://www.taihooncology.com/">https://www.taihooncology.com/</a>  Wagtail CMS/Python/Sass</li>
+                    <li><a href="https://www.taihopatientsupport.com/">https://www.taihopatientsupport.com/</a>  .NET/Gulp/Sass</li>
+                </ul>
+            </div>
         </div>
     </div>
     <div class="flex flex-col md:flex-row-reverse">
@@ -110,3 +126,37 @@ import Section from "../layouts/Section.astro"
         </div>
     </div>
 </Section>
+
+<script is:inline>    
+    const sitesManagedDropwdownBtn = document.getElementById("sitesManagedDropdownButton");
+    sitesManagedDropwdownBtn.addEventListener("click", () => {
+        const sitesManagedDropwdown = document.getElementById("sitesManagedDropwdown");
+        if (sitesManagedDropwdown.classList.contains("hidden")) {
+            sitesManagedDropwdown.classList.add("max-h-96");
+            sitesManagedDropwdown.classList.remove("hidden");
+            sitesManagedDropwdownBtn.innerText = "Hide Sites";
+        } else {
+            sitesManagedDropwdown.classList.remove("max-h-96");
+            setTimeout(function() {
+                sitesManagedDropwdown.classList.add("hidden");
+            }, 500);
+            sitesManagedDropwdownBtn.innerText = "Show Sites";
+        }
+    })
+</script>
+
+
+<style>
+    #sitesManagedDropwdown {
+        transition: max-height 0.5s;
+        overflow: hidden;
+        & ul li {
+            display: flex;
+            & a {
+                color: var(--color-primary);
+                text-decoration: underline;
+                min-height: 48px;
+                display: inline-block;
+                }
+        }
+    }
