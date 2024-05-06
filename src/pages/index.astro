@@ -1,8 +1,8 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import AreasOfExpertise from "../components/AreasOfExpertise.astro";
 import ProfessionalExperience from "../components/ProfessionalExperience.astro";
 import Education from "../components/Education.astro";
+import AreasOfExpertise from "../components/AreasOfExpertise.astro";
 import Certifications from "../components/Certifications.astro";
 import Contact from "../components/Contact.astro";
 ---
@@ -26,18 +26,18 @@ import Contact from "../components/Contact.astro";
 		</ul>
 		<nav class="relative">
 			<ul class="nav-menu my-2 flex hidden md:flex flex-col items-start md:flex-row md:justify-center md:gap-16">
-				<li><a href="#areas-of-expertise">Areas Of Expertise</a></li>
 				<li><a href="#professional-experience">Professional Experience</a></li>
 				<li><a href="#education">Education</a></li>
+				<li><a href="#areas-of-expertise">Areas Of Expertise</a></li>
 				<li><a href="#certifications">Certifications</a></li>
 				<li><a href="#contact">Contact</a></li>
 			</ul>
 		</nav>
 	</header>
 	<main class="max-w-screen-xl mx-auto">
-		<AreasOfExpertise />
 		<ProfessionalExperience />
 		<Education />
+		<AreasOfExpertise />
 		<Certifications />
 		<Contact />
 	</main>
