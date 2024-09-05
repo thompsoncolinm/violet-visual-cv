@@ -3,21 +3,119 @@ import Section from "../layouts/Section.astro"
 ---
 
 <Section idName="areas-of-expertise" header="Areas Of Expertise">
-    <p>
-        <strong>Soft Skills:</strong> Relationship building, collaboration,
-        multitasking, deadline driven, oral/written communication, creative
-        problem solving, skill development, coaching and training, strategic
-        planning, best practices, website optimization, code review,
-        debugging code, responsive web design, web animation, a11y standards
-    </p>
-    <p><strong>Hard Skills</strong></p>
-    <ul>
-        <li><strong>Programming:</strong><span> JavaScript, Python, PHP, C#</span></li>
-        <li><strong>Web Technologies:</strong><span> Document Object Model (DOM), HTML5, CSS3, JavaScript</span></li>
-        <li><strong>Frameworks/Libraries:</strong><span> Sass, Tailwind, Bootstrap, Typescript, jQuery, React, NextJS, Gatsby, GSAP, Astro, Laravel</span></li>
-        <li><strong>Database Management:</strong><span> SQL, MongoDB, MySQL, PostgreSQL</span></li>
-        <li><strong>CMS:</strong><span> Wordpress, Wagtail</span></li>
-        <li><strong>Design:</strong><span> Figma, Photoshop, Illustrator</span></li>
+    <div>
+        <h3><strong>Soft Skills:</strong></h3>
+        <ul class="soft-skills grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <li>Relationship building</li>
+            <li>Collaboration</li>
+            <li>Multitasking</li>
+            <li>Deadline-driven</li>
+            <li>Oral/written communication</li>
+            <li>Creative problem solving</li>
+            <li>Skill development</li>
+            <li>Coaching and training</li>
+            <li>Strategic planning</li>
+            <li>Best practices</li>
+            <li>Website optimization</li>
+            <li>Code review</li>
+            <li>Debugging</li>
+            <li>Responsive web design</li>
+            <li>Web animation</li>
+            <li>Accessibility standards</li>
+        </ul>
+    </div>
+    
+    <h3><strong>Hard Skills</strong></h3>
+    <ul class="tech-skills grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <li>
+            <strong>Programming Languages:</strong>
+            <ul>
+                <li>JavaScript (ES6+)</li>
+                <li>TypeScript</li>
+                <li>Python</li>
+                <li>PHP</li>
+                <li>C#</li>
+            </ul>
+        </li>
+        <li>
+            <strong>Web Technologies:</strong>
+            <ul>
+                <li>HTML5</li>
+                <li>CSS3</li>
+                <li>DOM Manipulation</li>
+                <li>RESTful APIs</li>
+                <li>JSON</li>
+                <li>XML</li>
+            </ul>
+        </li>
+        <li>
+            <strong>Frameworks & Libraries:</strong>
+            <ul>
+                <li>
+                    <strong>CSS:</strong>
+                    <ul>
+                        <li>Sass</li>
+                        <li>Tailwind CSS</li>
+                        <li>Bootstrap</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>JavaScript:</strong>
+                    <ul>
+                        <li>React</li>
+                        <li>Next.js</li>
+                        <li>Gatsby</li>
+                        <li>jQuery</li>
+                        <li>GSAP (GreenSock Animation Platform)</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>PHP:</strong>
+                    <ul>
+                        <li>Laravel</li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <strong>Database Management:</strong>
+            <ul>
+                <li>SQL</li>
+                <li>MongoDB</li>
+                <li>MySQL</li>
+                <li>PostgreSQL</li>
+            </ul>
+        </li>
+        <li>
+            <strong>Content Management Systems (CMS):</strong>
+            <ul>
+                <li>WordPress</li>
+                <li>Wagtail</li>
+            </ul>
+        </li>
+        <li>
+            <strong>Design Tools:</strong>
+            <ul>
+                <li>Figma</li>
+                <li>Adobe Photoshop</li>
+                <li>Adobe Illustrator</li>
+            </ul>
+        </li>
+        <li>
+            <strong>Version Control:</strong>
+            <ul>
+                <li>Git</li>
+                <li>GitHub</li>
+            </ul>
+        </li>
+        <li>
+            <strong>Build Tools:</strong>
+            <ul>
+                <li>Webpack</li>
+                <li>Gulp</li>
+                <li>Grunt</li>
+            </ul>
+        </li>
     </ul>
 </Section>
 

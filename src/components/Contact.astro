@@ -3,25 +3,32 @@ import Section from "../layouts/Section.astro"
 ---
 
 <Section idName="contact" header="Contact">
-    <ul class="contact-list">
-        <li>Cambridge, ON, N3E 0E3</li>
-        <li><a href="tel:(519) 980-2710">519.980.2710</a></li>
-        <li>
-            <a
-                href="mailto:thompsoncolinm+cvsite@gmail.com?subject=Hello%20Colin"
-                target="_blank">thompsoncolinm@gmail.com</a>
-        </li>
-        <li>
-            <a
-                href="https://www.linkedin.com/in/colin-thompson-06b87249"
-                target="_blank">LinkedIn</a>
-        </li>
-        <li>
-            <a
-                href="https://github.com/thompsoncolinm"
-                target="_blank">Github</a>
-        </li>
-    </ul>
+    <div class="flex flex-col md:flex-row">
+        <div class="w-full md:w-1/2 mt-4 md:mt-0">
+            <form action="https://formspree.io/f/mrgovlgd" method="POST" class="email-form max-w-md">
+                <input type="email" name="email" placeholder="Your email" required class="w-full p-2 mb-2 border rounded">
+                <textarea name="message" placeholder="Your message" required class="w-full p-2 mb-2 border rounded"></textarea>
+                <button type="submit" class="bg-blue-500 text-white p-2 rounded hover:bg-blue-600">Send</button>
+            </form>
+            <p>Or email me directly: <a href="mailto:thompsoncolinm+cvsite@gmail.com?subject=Hello%20Colin" target="_blank" class="underline">thompsoncolinm@gmail.com</a></p>
+        </div>
+        <div class="w-full md:w-1/2 md:pr-4">
+            <ul class="contact-list">
+                <li>Cambridge, ON, N3E 0E3</li>
+                <li><a href="tel:(519) 980-2710">519.980.2710</a></li>
+                <li>
+                    <a
+                    href="https://www.linkedin.com/in/colin-thompson-06b87249"
+                    target="_blank">LinkedIn</a>
+                </li>
+                <li>
+                    <a
+                    href="https://github.com/thompsoncolinm"
+                        target="_blank">Github</a>
+                </li>
+            </ul>
+        </div>
+    </div>
 </Section>
 
 <style>
