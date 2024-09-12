@@ -8,7 +8,7 @@ import Contact from "../components/Contact.astro";
 ---
 
 <Layout title="Colin Thompson">
-	<header class="max-w-screen-xl left-1/2 -translate-x-1/2 px-6 pt-2">
+	<header class="max-w-screen-xl left-1/2 -translate-x-1/2 px-6 pt-2 bg-white z-10">
 		<div class="w-full border-b-4 border-black">
 			<h1 class="text-left">Colin Thompson</h1>
 		</div>
@@ -35,8 +35,11 @@ import Contact from "../components/Contact.astro";
 		</nav>
 	</header>
 	<main class="max-w-screen mx-auto">
-		<div class="p-6 flex lg:justify-center">
-			<p class="max-w-3xl lg:text-center">Skilled Front-End Developer specializing in Web Development for 7 years with a light focus on Full-Stack development. Utilizes technical acumen and analytical skills to troubleshoot and provide effective solutions. Strong communicator with a collaborative approach to meet deadlines in a fast-paced environment.</p>
+		<div id="welcome-message" class="text-center text-4xl font-bold mb-8 fixed left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 h-0">
+			Welcome<br />I hope to chat soon.
+		</div>
+		<div class="p-6 flex md:justify-center">
+			<p class="max-w-3xl md:text-center">Skilled Front-End Developer specializing in Web Development for 7 years with a light focus on Full-Stack development. Utilizes technical acumen and analytical skills to troubleshoot and provide effective solutions. Strong communicator with a collaborative approach to meet deadlines in a fast-paced environment.</p>
 		</div>
 		<ProfessionalExperience />
 		<Education />
@@ -45,6 +48,91 @@ import Contact from "../components/Contact.astro";
 		<Contact />
 	</main>
 </Layout>
+
+<script>
+	import { gsap } from "gsap";
+	import { ScrollTrigger } from "gsap/ScrollTrigger";
+  
+	gsap.registerPlugin(ScrollTrigger);
+  
+	// Ensure the DOM is fully loaded before running the script
+	window.addEventListener('DOMContentLoaded', () => {
+	  // Create a GSAP timeline
+	  const tl = gsap.timeline();
+  
+	  // Welcome message animation
+	  tl.fromTo("#welcome-message", 
+		{ 
+			opacity: 1,
+			position: "fixed",
+			top: "50%",
+			yPercent: -50
+		
+		}, // Initial state
+		{ 
+		  opacity: 0,
+			top: "0%",
+			yPercent: 0,
+			duration: 1,
+			delay: 1,
+			onComplete: () => {
+			// Remove the welcome message from the DOM
+			document?.getElementById("welcome-message").remove();
+		},
+		}
+	  );
+  
+	  // Animation for the rest of the text
+	  const textElements = document.querySelectorAll("h2, h3, p, li, strong");
+  
+	  tl.fromTo(textElements, 
+		{
+			opacity: 0,
+
+		}, // Initial state
+		{ 
+		  opacity: 1, 
+		  //y: 0, // Final state
+		  y: "0",
+		  duration: .5,
+		  stagger: 0.2,
+		  scrollTrigger: {
+			trigger: textElements[0], // Use the first element as the trigger
+			start: "top 95%",
+			end: "bottom 10%",
+			// Remove scrub for a more noticeable animation
+		  },
+		},
+		"-=1" // Start this animation 1 second before the previous one ends
+	  );
+  
+	  // Add event listeners to anchor links
+	  const anchors = document.querySelectorAll('a[href^="#"]');
+	  anchors.forEach(anchor => {
+		anchor.addEventListener('click', (event) => {
+		  event.preventDefault();
+		  const targetId = anchor.getAttribute('href').substring(1);
+		  const targetElement = document.getElementById(targetId);
+  
+		  if (targetElement) {
+			// Cancel all ongoing animations on text elements
+			gsap.killTweensOf(textElements);
+  
+			textElements.forEach(element => {
+				gsap.to(element, { opacity: 1, y: 0, duration: 1 });
+			});
+  
+  
+			// Scroll to the target section
+			targetElement.scrollIntoView({ behavior: 'smooth' });
+		  } else {
+			console.warn(`Element with ID ${targetId} not found.`);
+		  }
+		});
+	  });
+	});
+  </script>
+  
 
 <style>
 	header {
@@ -122,6 +210,9 @@ import Contact from "../components/Contact.astro";
 	main {
 		min-height: 100vh;
 		padding-top: calc(var(--header-height) + 2rem);
+		p, li, strong {
+			opacity: 0;
+		}
 		@media screen and (min-width: 960px) {
 				padding-top: calc(var(--header-height-desktop) + 2rem);
 		}
