@@ -77,54 +77,89 @@ import Contact from "../components/Contact.astro";
 			delay: 1,
 			onComplete: () => {
 			// Remove the welcome message from the DOM
-			document?.getElementById("welcome-message").remove();
+			document.getElementById("welcome-message")?.remove();
+			const url = new URL(window.location.href);
+			const anchor = url.hash;
+
+			if (anchor) {
+				const targetElement = document.querySelector(anchor);
+				if (targetElement) {
+					targetElement.scrollIntoView({ behavior: 'smooth' });
+				}
+			} else {
+				window.scrollTo({ top: 0, behavior: 'smooth' });
+			}
+			
 		},
 		}
 	  );
   
 	  // Animation for the rest of the text
-	  const textElements = document.querySelectorAll("h2, h3, p, li, strong");
+	  const textElements = document.querySelectorAll("h2, h3, p, li, strong, input, textarea, button");
   
-	  tl.fromTo(textElements, 
-		{
-			opacity: 0,
-
-		}, // Initial state
-		{ 
-		  opacity: 1, 
-		  //y: 0, // Final state
-		  y: "0",
-		  duration: .5,
-		  stagger: 0.2,
-		  scrollTrigger: {
-			trigger: textElements[0], // Use the first element as the trigger
-			start: "top 95%",
-			end: "bottom 10%",
-			// Remove scrub for a more noticeable animation
-		  },
-		},
-		"-=1" // Start this animation 1 second before the previous one ends
-	  );
+	  if (window.scrollY === 0) {
+		tl.fromTo(textElements, 
+			{
+				opacity: 0,
+			}, // Initial state
+			{ 
+			  opacity: 1, 
+			  y: "0",
+			  duration: .1,
+			  stagger: 0.02,
+			  scrollTrigger: {
+				trigger: textElements[0], // Use the first element as the trigger
+				start: "top 95%",
+				end: "bottom 10%",
+				// Remove scrub for a more noticeable animation
+			  },
+			},
+			"-=1" // Start this animation 1 second before the previous one ends
+		);
+	  } else {
+		// If the user is already scrolled, make the text appear immediately
+		tl.fromTo(textElements, 
+			{
+				opacity: 0,
+			}, // Initial state
+			{ 
+			  opacity: 1, 
+			  y: "0",
+			  duration: .1,
+			  stagger: 0,
+			  scrollTrigger: {
+				trigger: textElements[0], // Use the first element as the trigger
+				start: "top 95%",
+				end: "bottom 10%",
+				// Remove scrub for a more noticeable animation
+			  },
+			},
+			"-=1" // Start this animation 1 second before the previous one ends
+		);
+	  }
   
 	  // Add event listeners to anchor links
 	  const anchors = document.querySelectorAll('a[href^="#"]');
 	  anchors.forEach(anchor => {
 		anchor.addEventListener('click', (event) => {
 		  event.preventDefault();
-		  const targetId = anchor.getAttribute('href').substring(1);
+		  const targetId = anchor.getAttribute('href')?.substring(1);
+		  if (!targetId) {
+			console.warn('Target ID is undefined.');
+			return;
+		  }
 		  const targetElement = document.getElementById(targetId);
   
 		  if (targetElement) {
 			// Cancel all ongoing animations on text elements
 			gsap.killTweensOf(textElements);
-  
+			// Reset the opacity of text elements
 			textElements.forEach(element => {
 				gsap.to(element, { opacity: 1, y: 0, duration: 1 });
 			});
   
-  
 			// Scroll to the target section
-			targetElement.scrollIntoView({ behavior: 'smooth' });
+			targetElement.scrollIntoView({ behavior: 'smooth' }); 
 		  } else {
 			console.warn(`Element with ID ${targetId} not found.`);
 		  }
@@ -210,7 +245,7 @@ import Contact from "../components/Contact.astro";
 	main {
 		min-height: 100vh;
 		padding-top: calc(var(--header-height) + 2rem);
-		p, li, strong {
+		h2, h3, p, li, strong, input, textarea, button {
 			opacity: 0;
 		}
 		@media screen and (min-width: 960px) {
