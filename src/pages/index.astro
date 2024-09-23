@@ -185,6 +185,7 @@ import Contact from "../components/Contact.astro";
 		border-bottom: 1px solid var(--wenge);
 		background-color: white;
 		color: var(--eerie-black);
+		z-index: 20;
 		& button {
 			grid-column-start: 2;
 			&::before {
@@ -245,6 +246,8 @@ import Contact from "../components/Contact.astro";
 	main {
 		min-height: 100vh;
 		padding-top: calc(var(--header-height) + 2rem);
+		position: relative;
+		z-index: 10;
 		h2, h3, p, li, strong, input, textarea, button {
 			opacity: 0;
 		}
