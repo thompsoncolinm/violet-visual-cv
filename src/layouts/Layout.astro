@@ -33,6 +33,7 @@ const { title } = Astro.props;
 	:root {
 		--header-height: 61px;
 		--header-height-nav-open: 197px;
+		--header-height-tablet: 125px;
 		--header-height-desktop: 101px;
 		--xs: 375px;
 		--sm: 576px;
@@ -62,6 +63,9 @@ const { title } = Astro.props;
 		padding: 0;
 		scroll-padding-top: var(--header-height-nav-open);
 		@media screen and (min-width: 960px) {
+			scroll-padding-top: var(--header-height-tablet);	
+		}
+		@media screen and (min-width: 1440px) {
 			scroll-padding-top: var(--header-height-desktop);	
 		}
 	}
