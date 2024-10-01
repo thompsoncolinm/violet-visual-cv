@@ -4,8 +4,8 @@ Skilled Front-End Developer specializing in Web Development for 7 years with a l
 
 ## Experience
 
-### Web Developer • Klick • Toronto, ON
-**May 2021 - Apr 2024 • 3yrs**
+### Web Developer &bull; Klick &bull; Toronto, ON
+**May 2021 - Apr 2024 &bull; 3yrs**
 
 - **End-to-End Development:** Executed development of new websites based on design concepts from Figma, Photoshop, and Sketch, leveraging HTML, CSS, and JavaScript.
 - **Collaboration:** Facilitated communication with cross-functional teams, including project management, creative designers, developers, and QA.
@@ -22,15 +22,15 @@ Skilled Front-End Developer specializing in Web Development for 7 years with a l
     - Taiho Oncology (Wagtail CMS/Python/Sass)
     - Taiho Patient Support (.NET/Gulp/Sass)
 
-### Front-End Developer • GS1 Canada • Toronto, ON • Contract
-**Apr 2019 - July 2021 • 2yrs 4mos**
+### Front-End Developer &bull; GS1 Canada &bull; Toronto, ON &bull; Contract
+**Apr 2019 - July 2021 &bull; 2yrs 4mos**
 
 - **Team Collaboration:** Partnered with Designers, Project Managers, Developers, and operated within a team structure of 10 individuals.
 - **Migration:** Transferred website code and assets to Kentico CMS, involving the migration of about 1000 pages.
 - **Development:** Applied HTML, CSS, jQuery, Gulp, JavaScript, and Bootstrap Library to aid in migration procedures.
 
-### Interactive Developer • Rain • Toronto, ON
-**Jan 2019 - Mar 2019 • 3 mos**
+### Interactive Developer &bull; Rain &bull; Toronto, ON
+**Jan 2019 - Mar 2019 &bull; 3 mos**
 
 - **Banner Ads & Splash Pages:** Built and animated banner ads and splash pages for clients such as Freedom Mobile and CWT Vacations.
 - **Creative Development:** Successfully brought creative visions to fruition through the development of live sites.
